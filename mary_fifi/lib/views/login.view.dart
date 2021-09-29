@@ -12,8 +12,8 @@ class LoginView extends StatelessWidget {
         backgroundColor: Color(0xff2A2235),
         body: SafeArea(
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SvgPicture.asset(logo),
               SizedBox(height: 80),
