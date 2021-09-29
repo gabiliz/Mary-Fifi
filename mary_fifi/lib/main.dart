@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/views/create_room.view.dart';
+import 'routes.dart' as route;
 import '/views/login.view.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: CreateRoom(),
+        onGenerateRoute: route.controller,
+        initialRoute: route.loginPage,
       ),
     );
   }
