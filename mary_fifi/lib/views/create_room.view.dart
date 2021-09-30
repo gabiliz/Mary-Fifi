@@ -9,16 +9,21 @@ class CreateRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xff2A2235),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: primaryColor,
         body: SafeArea(
-            child: Center(
-          child: Column(
+          child: Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(logo),
                 SizedBox(height: 80),
-                SvgPicture.asset(createRoom),
+                SvgPicture.asset(
+                    createRoom,
+                    height: 150, width: 150,
+                    fit: BoxFit.scaleDown
+                ),
                 SizedBox(height: 50),
                 Text(
                   'Criar uma nova sala',
@@ -33,10 +38,21 @@ class CreateRoom extends StatelessWidget {
                 SizedBox(
                   width: 250,
                   child: TextField(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(),
-                        hintText: 'Nome da sala'),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      border: UnderlineInputBorder(),
+                      hintText: 'Nome da sala',
+                      hintStyle: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )
                   ),
                 ),
                 SizedBox(height: 30),
@@ -63,7 +79,7 @@ class CreateRoom extends StatelessWidget {
                   Expanded(
                       child: Divider(
                     height: 20,
-                    thickness: 2,
+                    thickness: 1,
                     indent: 80,
                     endIndent: 20,
                     color: Colors.white,
@@ -78,32 +94,35 @@ class CreateRoom extends StatelessWidget {
                   Expanded(
                       child: Divider(
                     height: 20,
-                    thickness: 2,
+                    thickness: 1,
                     indent: 20,
                     endIndent: 80,
                     color: Colors.white,
                   )),
                 ]),
-                SizedBox(height: 10),
+                SizedBox(height: 30),
                 TextButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.fromLTRB(50, 15, 50, 15)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        EdgeInsets.fromLTRB(50, 15, 50, 15)),
+                    backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100.0)),
-                      )),
+                            borderRadius: BorderRadius.circular(100.0)))),
                   child: Text(
                     "Entrar em uma sala",
                     style: GoogleFonts.lato(
                       fontSize: 15.0,
-                      color: Colors.white,
+                      color: Color(0xff2A2235),
                     ),
                   ),
                 ),
-              ]),
-        )),
+              ]
+            ),
+          )
+        ),
       ),
     );
   }
