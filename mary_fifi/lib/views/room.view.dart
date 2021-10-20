@@ -1,14 +1,29 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../src/constants.dart';
 import 'package:mary_fifi/routes.dart' as route;
+=======
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mary_fifi/views/question.view.dart';
+import 'package:mary_fifi/views/room_footer.view.dart';
+import 'package:mary_fifi/views/room_header.view.dart';
+import '../src/constants.dart';
+import 'package:badges/badges.dart';
+
+>>>>>>> b782660d2b333988c568915804951b6d5aeeffb5
 
 class Room extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+<<<<<<< HEAD
         backgroundColor: Color(0xff2A2235),
         body: SafeArea(
             child: Center(
@@ -105,6 +120,31 @@ class Room extends StatelessWidget {
                 ),
               ]),
         )),
+=======
+        resizeToAvoidBottomInset: false,
+        backgroundColor: primaryColor,
+        body: SingleChildScrollView(
+          child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Column(
+                    children: [
+                      RoomHeader(),
+                      Question(),
+                      SizedBox(height: 10.0),
+                      Question(),
+                      SizedBox(height: 10.0),
+                      Question(),
+                      SizedBox(height: 10.0),
+                      RoomFooter(),
+                    ],
+                  ),
+                ),
+              )
+          ),
+        ),
+>>>>>>> b782660d2b333988c568915804951b6d5aeeffb5
       ),
     );
   }
