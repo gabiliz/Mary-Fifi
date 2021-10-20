@@ -10,6 +10,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Color(0xff2A2235),
         body: SafeArea(
             child: Column(
