@@ -5,6 +5,9 @@ const logo = 'assets/Logo.svg';
 const welcome = 'assets/inicio.svg';
 const createRoom = 'assets/createRoom.svg';
 const title = 'assets/Maryfifi.svg';
+const question = 'assets/createQuestion.svg';
+const user = 'assets/perfil.svg';
+const logoNome = 'assets/maryNomeExtenso.svg';
 
 //colors
 const primaryColor = Color(0xff2A2235);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'routes.dart' as route;
+// ignore: unused_import
 import '/views/login.view.dart';
 
 void main() => runApp(MyApp());
