@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mary_fifi/src/constants.dart';
+import 'package:mary_fifi/routes.dart' as route;
 
 class EmptyRoom extends StatelessWidget {
   @override

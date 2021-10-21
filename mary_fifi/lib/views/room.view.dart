@@ -12,6 +12,7 @@ class Room extends StatelessWidget {
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: primaryColor,
+        bottomSheet: RoomFooter(),
         body: SingleChildScrollView(
           child: SafeArea(
               child: Padding(
@@ -24,7 +25,6 @@ class Room extends StatelessWidget {
                       Question(),
                       Question(),
                       SizedBox(height: 10.0),
-                      RoomFooter(),
                     ],
                   ),
                 ),
