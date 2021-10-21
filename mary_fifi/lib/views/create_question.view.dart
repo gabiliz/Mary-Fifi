@@ -11,6 +11,22 @@ class CreateQuestion extends StatelessWidget {
     return MaterialApp(
         home: Scaffold(
       backgroundColor: primaryColor,
+      body: SafeArea(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Criar pergunta',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              fontSize: 25,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      )),
     ));
   }
 }
