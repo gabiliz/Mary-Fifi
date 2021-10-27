@@ -4,6 +4,8 @@ import 'package:mary_fifi/views/question.view.dart';
 import 'package:mary_fifi/views/room_footer.view.dart';
 import 'package:mary_fifi/views/room_header.view.dart';
 import '../src/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Room extends StatelessWidget {
   @override
@@ -22,8 +24,8 @@ class Room extends StatelessWidget {
                     children: [
                       RoomHeader(),
                       Question(),
-                      Question(),
-                      Question(),
+                      GetQuestion('question01'),
+                      GetQuestion('question02'),
                       SizedBox(height: 10.0),
                     ],
                   ),
@@ -32,6 +34,41 @@ class Room extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class GetQuestion extends StatelessWidget {
+  final String documentId;
+
+  GetQuestion(this.documentId);
+
+  @override
+  Widget build(BuildContext context) {
+    final questions = FirebaseFirestore.instance
+        .collection('questions')
+        .where('id', isEqualTo: documentId)
+        .snapshots();
+
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: questions,
+      builder: (BuildContext context,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (!snapshot.hasData) {
+          return Text("Document does not exist");
+        }
+
+        if (snapshot.hasData) {
+          return Text(
+              "Full Name: ${snapshot.data!.docs.first['title']} ${snapshot.data!.docs.first['description']}");
+        }
+
+        return Text("loading");
+      },
     );
   }
 }
