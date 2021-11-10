@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mary_fifi/routes.dart' as route;
+import 'create_question.view.dart';
+import 'create_room.view.dart';
 
 class RoomFooter extends StatelessWidget {
   @override
@@ -11,8 +12,14 @@ class RoomFooter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           TextButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, route.loginPage),
+            onPressed: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                builder: (context) => new CreateQuestion(),
+                ),
+              );
+            },
             style: ButtonStyle(
                 backgroundColor:
                 MaterialStateProperty.all<Color>(Colors.white),
@@ -30,8 +37,14 @@ class RoomFooter extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, route.loginPage),
+            onPressed: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                builder: (context) => new CreateRoom(),
+                ),
+              );
+            },
             style: ButtonStyle(
                 backgroundColor:
                 MaterialStateProperty.all<Color>(Colors.white),
@@ -41,7 +54,7 @@ class RoomFooter extends StatelessWidget {
                         borderRadius: BorderRadius.circular(
                             100.0)))),
             child: Text(
-              "Sair da sala",
+              "Sair",
               style: GoogleFonts.lato(
                 fontSize: 15.0,
                 color: Color(0xff2A2235),

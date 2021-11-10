@@ -13,34 +13,24 @@ class RoomHeader extends StatelessWidget {
           children: <Widget>[
             Row(children: <Widget>[
               Text(
-                'Sala React Q&A',
+                'Sala Pública',
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(width: 5.0),
-              Text(
-                '#454646',
-                style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
+              SizedBox(width: 10.0),
+              Chip(
+                backgroundColor: Colors.white,
+                label: Text('4 perguntas',
+                    style: GoogleFonts.lato(color: primaryColor)),
               ),
             ]),
             SvgPicture.asset(logo,
                 height: 50, width: 50, fit: BoxFit.scaleDown),
           ],
         ),
-        Row(children: <Widget>[
-          Chip(
-            backgroundColor: Colors.white,
-            label: Text('4 perguntas',
-                style: GoogleFonts.lato(color: primaryColor)),
-          ),
-        ]),
       ],
     );
   }

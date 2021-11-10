@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,26 +26,8 @@ class _QuestionState extends State<Question> {
             padding: EdgeInsets.all(20.0),
             child: Column(
               children: <Widget>[
-                Text(
-                  'Olá, eu gostaria de saber como criar um componente funcional dentro do React e se existe diferença na forma de criar os componentes.',
-                  style: GoogleFonts.lato(color: Colors.white, fontSize: 15.0),
-                ),
+                GetQuestion("question02"),
                 SizedBox(height: 5.0),
-                Row(children: <Widget>[
-                  Chip(
-                    padding: EdgeInsets.all(0),
-                    backgroundColor: Colors.white,
-                    label: Text('React',
-                        style: GoogleFonts.lato(color: primaryColor, fontSize: 12.0)),
-                  ),
-                  SizedBox(width: 10.0),
-                  Chip(
-                    padding: EdgeInsets.all(0),
-                    backgroundColor: Colors.white,
-                    label: Text('Javascript',
-                        style: GoogleFonts.lato(color: primaryColor, fontSize: 12.0)),
-                  ),
-                ]),
                 SizedBox(height: 10.0),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,8 +48,7 @@ class _QuestionState extends State<Question> {
                         children: <Widget>[
                           Row(children: <Widget>[
                             IconButton(
-                                icon: FaIcon(
-                                    FontAwesomeIcons.solidCheckCircle,
+                                icon: FaIcon(FontAwesomeIcons.solidCheckCircle,
                                     color: Colors.white),
                                 onPressed: () {
                                   print("Pressed");
@@ -92,6 +74,38 @@ class _QuestionState extends State<Question> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class GetQuestion extends StatelessWidget {
+  final String documentId;
+
+  GetQuestion(this.documentId);
+
+  @override
+  Widget build(BuildContext context) {
+    final questions = FirebaseFirestore.instance
+        .collection('questions')
+        .where('id', isEqualTo: documentId)
+        .snapshots();
+
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: questions,
+      builder: (BuildContext context,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+        if (!snapshot.hasData) {
+          return Text("Document does not exist");
+        }
+        if (snapshot.hasData) {
+          return Text("${snapshot.data!.docs.first['title']}",
+              style: GoogleFonts.lato(color: Colors.white, fontSize: 15.0));
+        }
+        return Text("loading");
+      },
     );
   }
 }

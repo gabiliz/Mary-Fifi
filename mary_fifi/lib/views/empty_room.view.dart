@@ -20,7 +20,7 @@ class EmptyRoom extends StatelessWidget {
         ),
         SizedBox(height: 30),
         TextButton(
-          onPressed: () => Navigator.pushNamed(context, route.room),
+          onPressed: () => Navigator.pushNamed(context, route.createQuestion),
           style: ButtonStyle(
               padding:
                   MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
