@@ -3,7 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // ignore: unused_import
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mary_fifi/sign_in.dart';
 import '../src/constants.dart';
+import 'package:provider/provider.dart';
 import 'package:mary_fifi/routes.dart' as route;
 
 class CreateRoom extends StatelessWidget {
@@ -55,7 +57,11 @@ class CreateRoom extends StatelessWidget {
                 ),
                 SizedBox(height: 30),
                 TextButton(
-                  onPressed: () => Navigator.pushNamed(context, route.roomPage),
+                  onPressed: () {
+                    final provider =
+                        Provider.of<GoogleSignInProvider>(context, listen: false);
+                    provider.googleLogin();
+                  },//() => Navigator.pushNamed(context, route.roomPage),
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsets>(
                           EdgeInsets.fromLTRB(50, 15, 50, 15)),
