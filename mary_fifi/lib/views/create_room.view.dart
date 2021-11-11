@@ -5,7 +5,6 @@ import 'package:mary_fifi/sign_in.dart';
 import 'package:mary_fifi/views/room.view.dart';
 import '../src/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:mary_fifi/routes.dart' as route;
 
 class CreateRoom extends StatelessWidget {
   @override
@@ -40,7 +39,7 @@ class CreateRoom extends StatelessWidget {
                       child: SizedBox(
                         width: 250,
                         child: Text(
-                          'Acesse sua conta na tela seguinte. Não se preocupe, suas informações são seguras conosco.',
+                          'Acesse sua conta na tela seguinte. Não se preocupe, suas informações estão seguras conosco.',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.lato(
                             fontSize: 16,

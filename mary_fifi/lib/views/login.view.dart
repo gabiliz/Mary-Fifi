@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mary_fifi/views/create_room.view.dart';
 import '../src/constants.dart';
-import 'package:mary_fifi/routes.dart' as route;
 
 class LoginView extends StatelessWidget {
   @override
@@ -43,7 +43,14 @@ class LoginView extends StatelessWidget {
               ),
               SizedBox(height: 30),
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, route.createRoom),
+                onPressed: () => {
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      builder: (context) => new CreateRoom(),
+                    ),
+                  )
+                },
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
                         EdgeInsets.all(15)),
