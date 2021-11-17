@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mary_fifi/src/constants.dart';
-import 'package:mary_fifi/routes.dart' as route;
+import 'create_question.view.dart';
 
 class EmptyRoom extends StatelessWidget {
   @override
@@ -10,7 +10,7 @@ class EmptyRoom extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Não existem perguntas, ainda...',
+          'Não existem perguntas nesta sala.',
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
             fontSize: 22,
@@ -20,7 +20,14 @@ class EmptyRoom extends StatelessWidget {
         ),
         SizedBox(height: 30),
         TextButton(
-          onPressed: () => Navigator.pushNamed(context, route.createQuestion),
+          onPressed: () => {
+            Navigator.push(
+              context,
+              new MaterialPageRoute(
+              builder: (context) => new CreateQuestion(),
+              ),
+            )
+          },
           style: ButtonStyle(
               padding:
                   MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
@@ -29,7 +36,7 @@ class EmptyRoom extends StatelessWidget {
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100.0)))),
           child: Text(
-            "Fazer Uma Pergunta",
+            "Fazer uma pergunta",
             style: GoogleFonts.lato(
               fontSize: 15.0,
               color: Color(0xff2A2235),

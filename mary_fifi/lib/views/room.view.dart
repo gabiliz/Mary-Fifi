@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mary_fifi/views/question.view.dart';
 import 'package:mary_fifi/views/room_footer.view.dart';
 import 'package:mary_fifi/views/room_header.view.dart';
 import '../src/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Room extends StatelessWidget {
   @override
