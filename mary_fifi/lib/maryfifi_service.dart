@@ -27,8 +27,8 @@ class MaryFifiService {
 
   static Future<void> addQuestion({
     required String title,
-    required String personName,
-    required String personImageURL,
+    required String? personName,
+    required String? personImageURL,
   }) async {
     DocumentReference question = _questionsCollection.doc();
 

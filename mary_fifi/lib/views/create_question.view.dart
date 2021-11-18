@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../src/constants.dart';
 import 'room.view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mary_fifi/maryfifi_service.dart';
 
 class CreateQuestion extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class _CreateQuestionState extends State<CreateQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return MaterialApp(
         home: Scaffold(
       backgroundColor: primaryColor,
@@ -52,6 +55,9 @@ class _CreateQuestionState extends State<CreateQuestion> {
                               BorderSide(color: Color(0xffA04FC6), width: 1),
                           borderRadius: BorderRadius.circular(16)),
                     ),
+                    onChanged: (value) {
+                      title = value;
+                    },
                   ),
                 ),
                 Container(
@@ -70,11 +76,12 @@ class _CreateQuestionState extends State<CreateQuestion> {
                   margin: EdgeInsets.only(bottom: 30.0),
                   child: Row(
                     children: <Widget>[
-                      SvgPicture.asset(logo,
-                          height: 40, width: 40, fit: BoxFit.scaleDown),
+                      CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage('${user?.photoURL}')),
                       SizedBox(width: 10.0),
                       Text(
-                        'João Gomes',
+                        '${user?.displayName}',
                         style: GoogleFonts.lato(color: Colors.white),
                       ),
                     ],
@@ -113,6 +120,10 @@ class _CreateQuestionState extends State<CreateQuestion> {
                     SizedBox(width: 25.0),
                     TextButton(
                       onPressed: () {
+                        MaryFifiService.addQuestion(
+                            title: title,
+                            personName: user?.displayName,
+                            personImageURL: user?.photoURL);
                         Navigator.push(
                           context,
                           new MaterialPageRoute(
