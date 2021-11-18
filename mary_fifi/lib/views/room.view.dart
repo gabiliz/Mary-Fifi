@@ -102,7 +102,7 @@ class QuestionTile extends StatelessWidget {
                           SizedBox(width: 8.0),
                           Text(
                             personName,
-                            style: GoogleFonts.lato(color: Colors.white),
+                            style: GoogleFonts.lato(color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

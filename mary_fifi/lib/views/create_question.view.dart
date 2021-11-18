@@ -4,7 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../src/constants.dart';
 import 'room.view.dart';
 
-class CreateQuestion extends StatelessWidget {
+class CreateQuestion extends StatefulWidget {
+  @override
+  State<CreateQuestion> createState() => _CreateQuestionState();
+}
+
+class _CreateQuestionState extends State<CreateQuestion> {
+  late String title;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
