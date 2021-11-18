@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final _questionsCollection = _firestore.collection('questions');
 final _answersCollection = _firestore.collection('answers');
+
+Random random = new Random();
 
 class MaryFifiService {
   static Stream<QuerySnapshot<Map<String, dynamic>>> getQuestions() {
@@ -33,6 +36,7 @@ class MaryFifiService {
     DocumentReference question = _questionsCollection.doc();
 
     Map<String, dynamic> data = {
+      'id': random.nextInt(100000).toString(),
       'title': title,
       'person_name': personName,
       'person_imageURL': personImageURL,
