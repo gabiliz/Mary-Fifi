@@ -44,8 +44,6 @@ class _CreateQuestionState extends State<CreateQuestion> {
                     cursorColor: Colors.white,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      contentPadding:
-                          const EdgeInsets.symmetric(vertical: 60.0),
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Color(0xffA04FC6), width: 1),
@@ -55,6 +53,7 @@ class _CreateQuestionState extends State<CreateQuestion> {
                               BorderSide(color: Color(0xffA04FC6), width: 1),
                           borderRadius: BorderRadius.circular(16)),
                     ),
+                    maxLines: 6,
                     onChanged: (value) {
                       title = value;
                     },

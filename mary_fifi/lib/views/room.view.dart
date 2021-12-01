@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mary_fifi/views/empty_room.view.dart';
 import 'package:mary_fifi/views/question.view.dart';
+import 'package:mary_fifi/views/question_room.view.dart';
 import 'package:mary_fifi/views/room_footer.view.dart';
 import 'package:mary_fifi/views/room_header.view.dart';
 import '../maryfifi_service.dart';
@@ -98,11 +99,15 @@ class QuestionTile extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          CircleAvatar(radius: 20, backgroundImage: NetworkImage(personImageURL)),
+                          CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(personImageURL)),
                           SizedBox(width: 8.0),
                           Text(
                             personName,
-                            style: GoogleFonts.lato(color: Colors.white, fontWeight: FontWeight.bold),
+                            style: GoogleFonts.lato(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -115,6 +120,12 @@ class QuestionTile extends StatelessWidget {
                                     color: Colors.white),
                                 onPressed: () {
                                   print("Pressed");
+                                  Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                      builder: (context) => new QuestionRoom(),
+                                    ),
+                                  );
                                 }),
                             IconButton(
                                 icon: FaIcon(FontAwesomeIcons.trash,
@@ -134,4 +145,3 @@ class QuestionTile extends StatelessWidget {
     );
   }
 }
-

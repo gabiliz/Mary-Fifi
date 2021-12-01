@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../sign_in.dart';
 import 'create_question.view.dart';
 import 'create_room.view.dart';
+import 'package:provider/provider.dart';
 
 class RoomFooter extends StatelessWidget {
   @override
@@ -38,6 +40,8 @@ class RoomFooter extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
+              final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
+              provider.logout();
               Navigator.push(
                 context,
                 new MaterialPageRoute(
