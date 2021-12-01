@@ -9,44 +9,30 @@ class EmptyRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SvgPicture.asset(createRoom, height: 200, width: 200),
+        SizedBox(height: 20),
         Text(
-          'Não existem perguntas nesta sala.',
+          'Não existem perguntas no momento',
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
-            fontSize: 22,
+            fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 30),
-        TextButton(
-          onPressed: () => {
-            Navigator.push(
-              context,
-              new MaterialPageRoute(
-              builder: (context) => new CreateQuestion(),
-              ),
-            )
-          },
-          style: ButtonStyle(
-              padding:
-                  MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100.0)))),
+        SizedBox(height: 10),
+        SizedBox(
+          width: 250,
           child: Text(
-            "Fazer uma pergunta",
-            style: GoogleFonts.lato(
-              fontSize: 15.0,
-              color: Color(0xff2A2235),
+            'Crie perguntas no botão abaixo.',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              fontSize: 15,
+              color: Colors.grey,
             ),
           ),
         ),
-        SizedBox(height: 30),
-        SizedBox(height: 10),
-        SvgPicture.asset(question),
-        SizedBox(height: 50),
+        SizedBox(height: 250),
       ],
     );
   }

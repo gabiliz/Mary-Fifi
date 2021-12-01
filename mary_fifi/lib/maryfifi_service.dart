@@ -1,31 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:math';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final _questionsCollection = _firestore.collection('questions');
 final _answersCollection = _firestore.collection('answers');
 
-Random random = new Random();
-
 class MaryFifiService {
   static Stream<QuerySnapshot<Map<String, dynamic>>> getQuestions() {
     return _questionsCollection.snapshots();
-  }
-
-  static Future<void> updateQuestion({
-    required String id,
-    required String title,
-  }) async {
-    DocumentReference question = _questionsCollection.doc(id);
-
-    Map<String, dynamic> data = {
-      'title': title,
-    };
-
-    await question
-        .update(data)
-        .whenComplete(() => print('Pergunta atualizada'))
-        .catchError((e) => print(e));
   }
 
   static Future<void> addQuestion({
@@ -36,7 +17,6 @@ class MaryFifiService {
     DocumentReference question = _questionsCollection.doc();
 
     Map<String, dynamic> data = {
-      'id': random.nextInt(100000).toString(),
       'title': title,
       'person_name': personName,
       'person_imageURL': personImageURL,
@@ -53,6 +33,41 @@ class MaryFifiService {
     await question
         .delete()
         .whenComplete(() => print('Pergunta removida'))
+        .catchError((e) => print(e));
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAnswers({
+    required String questionId,
+  }) {
+      return _answersCollection.where('question_id', isEqualTo: questionId).snapshots();
+  }
+
+  static Future<void> addAnswer({
+    required String questionId,
+    required String title,
+    required String? personName,
+    required String? personImageURL,
+  }) async {
+    DocumentReference question = _answersCollection.doc();
+
+    Map<String, dynamic> data = {
+      'question_id': questionId,
+      'title': title,
+      'person_name': personName,
+      'person_imageURL': personImageURL,
+    };
+
+    await question
+        .set(data)
+        .whenComplete(() => print('Resposta criada!'))
+        .catchError((e) => print(e));
+  }
+
+  static Future<void> deleteAnswer({required String id}) async {
+    DocumentReference answer = _answersCollection.doc(id);
+    await answer
+        .delete()
+        .whenComplete(() => print('Resposta removida'))
         .catchError((e) => print(e));
   }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mary_fifi/views/empty_room.view.dart';
 import 'package:mary_fifi/views/question.view.dart';
 import 'package:mary_fifi/views/room_footer.view.dart';
 import 'package:mary_fifi/views/room_header.view.dart';
@@ -23,34 +24,33 @@ class Room extends StatelessWidget {
             children: [
               RoomHeader(),
               StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: MaryFifiService.getQuestions(),
-                  builder: (context, snapshot) {
-                    List<QuestionTile> questionList = [];
+                stream: MaryFifiService.getQuestions(),
+                builder: (context, snapshot) {
+                  List<QuestionTile> questionList = [];
 
-                    if (!snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return EmptyRoom();
+                  }
 
-                    final questions = snapshot.data!.docs;
-                    for (var question in questions) {
-                      questionList.add(QuestionTile(
-                        id: question.data()['id'],
-                        title: question.data()['title'],
-                        personName: question.data()['person_name'],
-                        personImageURL: question.data()['person_imageURL'],
-                      ));
-                    }
+                  final questions = snapshot.data!.docs;
+                  for (var question in questions) {
+                    questionList.add(QuestionTile(
+                      id: question.id,
+                      title: question.data()['title'],
+                      personName: question.data()['person_name'],
+                      personImageURL: question.data()['person_imageURL'],
+                    ));
+                  }
 
-                    return Expanded(
-                      child: ListView(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 20.0),
-                        children: questionList,
-                      ),
-                    );
-                  }),
+                  return Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 20.0),
+                      children: questionList,
+                    ),
+                  );
+                }
+              ),
             ],
           ),
         ),
