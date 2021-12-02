@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mary_fifi/views/create_answer.view.dart';
 import '../src/constants.dart';
 import 'empty_room.view.dart';
 import 'room.view.dart';
@@ -113,63 +114,65 @@ class _QuestionRoomState extends State<QuestionRoom> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => new Room(),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (context) => new Room(),
+                              ),
+                            );
+                          },
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.fromLTRB(25, 15, 25, 15)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(100.0)))),
+                          child: Text(
+                            "Voltar",
+                            style: GoogleFonts.lato(
+                              fontSize: 15.0,
+                              color: Color(0xff2A2235),
                             ),
-                          );
-                        },
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.fromLTRB(25, 15, 25, 15)),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(100.0)))),
-                        child: Text(
-                          "Voltar",
-                          style: GoogleFonts.lato(
-                            fontSize: 15.0,
-                            color: Color(0xff2A2235),
                           ),
                         ),
                       ),
                       SizedBox(width: 25.0),
-                      TextButton(
-                        onPressed: () {
-                          MaryFifiService.addQuestion(
-                              title: title,
-                              personName: user?.displayName,
-                              personImageURL: user?.photoURL);
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => new Room(),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (context) => new CreateAnswer(),
+                              ),
+                            );
+                          },
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 25)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(100.0)))),
+                          child: Text(
+                            "Responder",
+                            style: GoogleFonts.lato(
+                              fontSize: 15.0,
+                              color: Color(0xff2A2235),
                             ),
-                          );
-                        },
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 25)),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(100.0)))),
-                        child: Text(
-                          "Responder",
-                          style: GoogleFonts.lato(
-                            fontSize: 15.0,
-                            color: Color(0xff2A2235),
                           ),
                         ),
                       ),
