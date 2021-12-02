@@ -32,7 +32,6 @@ class EmptyRoom extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 250),
       ],
     );
   }

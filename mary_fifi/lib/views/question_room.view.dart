@@ -1,20 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../src/constants.dart';
+import 'empty_room.view.dart';
 import 'room.view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mary_fifi/maryfifi_service.dart';
 
 class QuestionRoom extends StatefulWidget {
+  QuestionRoom({required this.id, required this.title, required this.personName, required this.personImageURL});
+
+  final String id;
+  final String title;
+  final String personName;
+  final String personImageURL;
+
   @override
   State<QuestionRoom> createState() => _QuestionRoomState();
 }
 
 class _QuestionRoomState extends State<QuestionRoom> {
-  late String title;
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -28,114 +35,78 @@ class _QuestionRoomState extends State<QuestionRoom> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 20),
-                  child: Text(
-                    'Pergunta',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                SizedBox(height: 20.0),
+                Text(
+                  'Pergunta',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 25,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  widget.title,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 15.0),
+                Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage('${widget.personImageURL}')),
+                    SizedBox(width: 10.0),
+                    Text(
+                      '${widget.personName}',
+                      style: GoogleFonts.lato(color: Colors.white),
                     ),
+                  ],
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  'Respostas',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 25,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 20.0),
-                  child: Text(
-                    'pergunta bla bla bla bla bla bla bla',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 30.0),
-                  child: Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                          radius: 25,
-                          backgroundImage: NetworkImage('${user?.photoURL}')),
-                      SizedBox(width: 10.0),
-                      Text(
-                        '${user?.displayName}',
-                        style: GoogleFonts.lato(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 20.0),
-                  child: Text(
-                    'Respostas',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                  child: GestureDetector(
-                    onTap: () => {},
-                    child: Card(
-                      color: secondaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.all(20.0),
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'resposta bla bla bla bla bla',
-                              style: GoogleFonts.lato(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                            SizedBox(height: 10.0),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      CircleAvatar(
-                                          radius: 20,
-                                          backgroundImage: NetworkImage(
-                                              '${user?.photoURL}')),
-                                      SizedBox(width: 8.0),
-                                      Text(
-                                        '${user?.displayName}',
-                                        style: GoogleFonts.lato(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(width: 15.0),
-                                  Row(
-                                    children: <Widget>[
-                                      Row(children: <Widget>[
-                                        IconButton(
-                                            icon: FaIcon(FontAwesomeIcons.trash,
-                                                color: Colors.white),
-                                            onPressed: () {
-                                              print("Pressed");
-                                              // MaryFifiService.deleteQuestion(
-                                              //     id: id);
-                                            }),
-                                      ]),
-                                    ],
-                                  ),
-                                ]),
-                          ],
+                SizedBox(height: 25.0),
+                StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: MaryFifiService.getAnswers(questionId: widget.id),
+                    builder: (context, snapshot) {
+                      List<AnswerTile> answerList = [];
+
+                      print(snapshot.data!.docs.length);
+
+                      if (snapshot.data!.docs.isEmpty) {
+                        return Center(child: EmptyRoom());
+                      }
+
+                      final answers = snapshot.data!.docs;
+                      for (var answer in answers) {
+                        answerList.add(AnswerTile(
+                          id: answer.id,
+                          title: answer.data()['title'],
+                          personName: answer.data()['person_name'],
+                          personImageURL: answer.data()['person_photoURL'],
+                        ));
+                      }
+
+                      return Expanded(
+                        child: ListView(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 20.0),
+                          children: answerList,
                         ),
-                      ),
-                    ),
-                  ),
+                      );
+                    }
                 ),
                 SizedBox(height: 25.0),
                 Expanded(
@@ -205,6 +176,80 @@ class _QuestionRoomState extends State<QuestionRoom> {
                     ],
                   ),
                 )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AnswerTile extends StatelessWidget {
+  const AnswerTile({
+    Key? key,
+    required this.id,
+    required this.title,
+    required this.personName,
+    required this.personImageURL,
+  }) : super(key: key);
+
+  final String id;
+  final String title;
+  final String personName;
+  final String personImageURL;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () => {},
+        child: Card(
+          color: secondaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  title,
+                  style: GoogleFonts.lato(color: Colors.white, fontSize: 15),
+                ),
+                SizedBox(height: 10.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(personImageURL)),
+                        SizedBox(width: 8.0),
+                        Text(
+                          personName,
+                          style: GoogleFonts.lato(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 15.0),
+                    Row(
+                      children: <Widget>[
+                        Row(children: <Widget>[
+                          IconButton(
+                            icon: FaIcon(FontAwesomeIcons.trash,
+                                color: Colors.white),
+                            onPressed: () {
+                              MaryFifiService.deleteAnswer(id: id);
+                            }),
+                        ]),
+                      ],
+                    ),
+                  ]),
               ],
             ),
           ),

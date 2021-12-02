@@ -123,7 +123,7 @@ class QuestionTile extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     new MaterialPageRoute(
-                                      builder: (context) => new QuestionRoom(),
+                                      builder: (context) => new QuestionRoom(id: id, title: title, personName: personName, personImageURL: personImageURL),
                                     ),
                                   );
                                 }),
