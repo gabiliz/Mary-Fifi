@@ -51,16 +51,12 @@ class CreateRoom extends StatelessWidget {
                     SizedBox(height: 30),
                     TextButton(
                       onPressed: () {
-                        final provider =
-                          Provider.of<GoogleSignInProvider>(context, listen: false);
-                        provider.googleLogin().then((data){
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => new Room(),
-                            ),
-                          );
-                        });
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (context) => new Room(),
+                          ),
+                        );
                       },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all<EdgeInsets>(

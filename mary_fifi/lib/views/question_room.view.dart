@@ -49,7 +49,9 @@ class _QuestionRoomState extends State<QuestionRoom> {
                 SizedBox(height: 20.0),
                 Text(
                   widget.title,
-                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
+                  textAlign: TextAlign.left,
                   style: GoogleFonts.poppins(
                     fontSize: 15,
                     color: Colors.white,
@@ -78,7 +80,7 @@ class _QuestionRoomState extends State<QuestionRoom> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 25.0),
+                SizedBox(height: 10.0),
                 StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: MaryFifiService.getAnswers(questionId: widget.id),
                     builder: (context, snapshot) {
@@ -96,89 +98,85 @@ class _QuestionRoomState extends State<QuestionRoom> {
                           id: answer.id,
                           title: answer.data()['title'],
                           personName: answer.data()['person_name'],
-                          personImageURL: answer.data()['person_photoURL'],
+                          personImageURL: answer.data()['person_imageURL'],
                         ));
                       }
 
                       return Expanded(
                         child: ListView(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 20.0),
                           children: answerList,
                         ),
                       );
                     }
                 ),
                 SizedBox(height: 25.0),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                builder: (context) => new Room(),
-                              ),
-                            );
-                          },
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.fromLTRB(25, 15, 25, 15)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(100.0)))),
-                          child: Text(
-                            "Voltar",
-                            style: GoogleFonts.lato(
-                              fontSize: 15.0,
-                              color: Color(0xff2A2235),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                              builder: (context) => new Room(),
                             ),
+                          );
+                        },
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.fromLTRB(25, 15, 25, 15)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.white),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(100.0)))),
+                        child: Text(
+                          "Voltar",
+                          style: GoogleFonts.lato(
+                            fontSize: 15.0,
+                            color: Color(0xff2A2235),
                           ),
                         ),
                       ),
-                      SizedBox(width: 25.0),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                builder: (context) => new CreateAnswer(),
-                              ),
-                            );
-                          },
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 25)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(100.0)))),
-                          child: Text(
-                            "Responder",
-                            style: GoogleFonts.lato(
-                              fontSize: 15.0,
-                              color: Color(0xff2A2235),
+                    ),
+                    SizedBox(width: 15.0),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                              builder: (context) => new CreateAnswer(questionId: widget.id,),
                             ),
+                          );
+                        },
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 25)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.white),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(100.0)))),
+                        child: Text(
+                          "Responder",
+                          style: GoogleFonts.lato(
+                            fontSize: 15.0,
+                            color: Color(0xff2A2235),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                )
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -204,9 +202,7 @@ class AnswerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GestureDetector(
+    return GestureDetector(
         onTap: () => {},
         child: Card(
           color: secondaryColor,
@@ -233,6 +229,7 @@ class AnswerTile extends StatelessWidget {
                         SizedBox(width: 8.0),
                         Text(
                           personName,
+                          overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.lato(
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
@@ -257,7 +254,6 @@ class AnswerTile extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

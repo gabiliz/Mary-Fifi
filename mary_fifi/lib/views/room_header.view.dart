@@ -26,7 +26,7 @@ class RoomHeader extends StatelessWidget {
                 SizedBox(width: 10.0),
                 Chip(
                   backgroundColor: Colors.white,
-                  label: Text('4 pergunta(s)',
+                  label: Text('Sala de perguntas',
                       style: GoogleFonts.lato(color: primaryColor)),
                 ),
               ]),

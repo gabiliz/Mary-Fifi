@@ -91,6 +91,8 @@ class QuestionTile extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
                   style: GoogleFonts.lato(color: Colors.white, fontSize: 15),
                 ),
                 SizedBox(height: 10.0),
@@ -105,6 +107,7 @@ class QuestionTile extends StatelessWidget {
                           SizedBox(width: 8.0),
                           Text(
                             personName,
+                            overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.lato(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),

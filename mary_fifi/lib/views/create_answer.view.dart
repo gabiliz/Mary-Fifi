@@ -7,6 +7,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mary_fifi/maryfifi_service.dart';
 
 class CreateAnswer extends StatefulWidget {
+  CreateAnswer({required this.questionId});
+
+  final String questionId;
+
   @override
   State<CreateAnswer> createState() => _CreateAnswerState();
 }
@@ -27,42 +31,14 @@ class _CreateAnswerState extends State<CreateAnswer> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 20, bottom: 20),
-                child: Text(
-                  'Responder pergunta',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    fontSize: 25,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  'pergunta bla bla bla bla bla bla bla',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 30.0),
-                child: Row(
-                  children: <Widget>[
-                    CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage('${user?.photoURL}')),
-                    SizedBox(width: 10.0),
-                    Text(
-                      '${user?.displayName}',
-                      style: GoogleFonts.lato(color: Colors.white),
-                    ),
-                  ],
+              Spacer(flex: 7),
+              Text(
+                'Responder pergunta',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 25,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               Container(
@@ -86,102 +62,101 @@ class _CreateAnswerState extends State<CreateAnswer> {
                   },
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  'Respondendo como',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+              Text(
+                'Respondendo como',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                children: <Widget>[
+                  CircleAvatar(
+                      radius: 25,
+                      backgroundImage: NetworkImage('${user?.photoURL}')),
+                  SizedBox(width: 10.0),
+                  Text(
+                    '${user?.displayName}',
+                    style: GoogleFonts.lato(color: Colors.white),
                   ),
-                ),
+                ],
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 30.0),
-                child: Row(
-                  children: <Widget>[
-                    CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage('${user?.photoURL}')),
-                    SizedBox(width: 10.0),
-                    Text(
-                      '${user?.displayName}',
-                      style: GoogleFonts.lato(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => new Room(),
-                            ),
-                          );
-                        },
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.fromLTRB(25, 15, 25, 15)),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(100.0)))),
-                        child: Text(
-                          "Voltar",
-                          style: GoogleFonts.lato(
-                            fontSize: 15.0,
-                            color: Color(0xff2A2235),
+              Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (context) => new Room(),
                           ),
+                        );
+                      },
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.fromLTRB(25, 15, 25, 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(100.0)))),
+                      child: Text(
+                        "Voltar",
+                        style: GoogleFonts.lato(
+                          fontSize: 15.0,
+                          color: Color(0xff2A2235),
                         ),
                       ),
                     ),
-                    SizedBox(width: 25.0),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => new CreateAnswer(),
-                            ),
-                          );
-                        },
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 25)),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(100.0)))),
-                        child: Text(
-                          "Criar resposta",
-                          style: GoogleFonts.lato(
-                            fontSize: 15.0,
-                            color: Color(0xff2A2235),
+                  ),
+                  SizedBox(width: 15.0),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      onPressed: () {
+                        MaryFifiService.addAnswer(
+                          questionId: widget.questionId,
+                          title: title,
+                          personName: user?.displayName,
+                          personImageURL: user?.photoURL);
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (context) => new Room(),
                           ),
+                        );
+                      },
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 25)),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(100.0)))),
+                      child: Text(
+                        "Criar resposta",
+                        style: GoogleFonts.lato(
+                          fontSize: 15.0,
+                          color: Color(0xff2A2235),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
             ],
           ),
         ),
