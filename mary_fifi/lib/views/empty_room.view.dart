@@ -9,6 +9,7 @@ class EmptyRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 150),
         SvgPicture.asset(createRoom, height: 200, width: 200),
         SizedBox(height: 20),
         Text(

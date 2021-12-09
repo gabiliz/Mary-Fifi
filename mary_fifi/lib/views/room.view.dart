@@ -20,8 +20,6 @@ class Room extends StatelessWidget {
         bottomSheet: RoomFooter(),
         body: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               RoomHeader(),
               StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
